@@ -43,7 +43,7 @@ wedding.generateInvitation('${name}')`;
         if (terminal1.length >= 52) {
           const loadingTimeout = setTimeout(() => {
             loadingHandlers.increment();
-          }, Math.random() * 10);
+          }, Math.random() * 2);
           return () => {
             clearTimeout(loadingTimeout);
           };
