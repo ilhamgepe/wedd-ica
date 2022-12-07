@@ -1,0 +1,9 @@
+@tailwind components;
+@tailwind utilities;
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu+Mono&display=swap");
+
+@layer utilities {
+  .terminalFont {
+    font-family: "Ubuntu Mono", monospace;
+  }
+}
