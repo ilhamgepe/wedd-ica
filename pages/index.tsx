@@ -9,44 +9,43 @@ interface IName {
   name: string;
 }
 
-const text1 = `import {🌏} from "./happiness"
-const {🧑,👧}=🌏
-🧑.name = 'M Aslam Faudzan'
-👧.name = 'Marisha Mufqi'
-
-const wedding = new Wedding(🧑,👧)
-wedding.setDate('March 26, 2023 08:00:00')
-wedding.setLocation('tanggerang')
-wedding.generateInvitation()`;
-
 const Home = ({ name }: IName) => {
   const [typed, setTyped] = useState("");
   const [terminal1, setTerminal1] = useState("");
   const [loading, loadingHandlers] = useCounter(0, { min: 0, max: 10 });
   const textTerminal1 = `$ node wedding`;
+  const text1 = `import {🌏} from "./happiness"
+const {🧑,👧}=🌏
+🧑.name = 'Aslam Fauzan'
+👧.name = 'Marisha Mufqi'
+
+const wedding = new Wedding(🧑,👧)
+wedding.setDate('March 26, 2023 08:00:00')
+wedding.setLocation('tanggerang')
+wedding.generateInvitation('${name}')`;
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      const timeout = setTimeout(() => {
-        setTyped(text1.slice(0, typed.length + 1));
-      }, 50);
-    }, 100);
-    console.log(typed.length);
+    const timeout = setTimeout(() => {
+      setTyped(text1.slice(0, typed.length + 1));
+    }, 50);
+    console.log(text1.length);
 
-    return () => clearInterval(interval);
+    return () => {
+      clearTimeout(timeout);
+    };
   }, [typed]);
 
   return (
-    <Center className="h-screen bg-blackEditor">
-      <div className="bg-blackEditor text-gray-300 rounded overflow-x-auto">
-        <nav className="p-2">
+    <div className="min-h-screen bg-blackEditor text-gray-300 relative">
+      <div className=" ">
+        <nav className="p-2 w-full h-full ">
           <div className="flex gap-2 items-center">
             <div className="bg-red-500 w-4 h-4 rounded-full"></div>
             <div className="bg-yellow-500 w-4 h-4 rounded-full"></div>
             <div className="bg-green-500 w-4 h-4 rounded-full"></div>
           </div>
           <div className="flex mt-2 bg-gray-900">
-            <div className="bg-blackEditor p-2 flex items-center">
+            <div className=" p-2 flex items-center">
               <BrandReact height={16} className="text-blue-400" />
               <Text>wedding.ts</Text>
               <X height={18} />
@@ -57,37 +56,35 @@ const Home = ({ name }: IName) => {
             </div>
           </div>
         </nav>
-        <div className="flex flex-col w-[380px] h-[80vh]   md:max-w-[400px] md:max-h-[500px]">
-          <div id="wrapperSection" className="mb-auto">
-            <ScrollArea>
-              <Prism
-                language="typescript"
-                colorScheme="dark"
-                withLineNumbers
-                noCopy
-                trim
-                fz={12}
-              >
-                {typed}
-              </Prism>
-            </ScrollArea>
+      </div>
+      <div id="wrapperSection" className="flex flex-col h-[60vh]">
+        <ScrollArea className="flex-1">
+          <Prism
+            language="typescript"
+            colorScheme="dark"
+            withLineNumbers
+            noCopy
+            trim
+            fz={12}
+          >
+            {typed}
+          </Prism>
+        </ScrollArea>
+        <div className="">
+          <Divider label="terminal" labelPosition="center" />
+          <div className="flex items-center px-2 justify-between">
+            <Terminal />
+            <div className="flex items-center ">
+              <Terminal2 />
+              <Text>bash</Text>
+            </div>
           </div>
-          <div className="border border-t-2 border-gray-800">
-            <Divider label="terminal" labelPosition="center" />
-            <div className="flex items-center px-2 justify-between">
-              <Terminal />
-              <div className="flex items-center">
-                <Terminal2 />
-                <Text>bash</Text>
-              </div>
-            </div>
-            <div className="p-3 font-thin terminalFont">
-              <Text>{terminal1}</Text>
-            </div>
+          <div className="p-3 font-thin terminalFont">
+            <Text>{terminal1}</Text>
           </div>
         </div>
       </div>
-    </Center>
+    </div>
   );
 };
 
