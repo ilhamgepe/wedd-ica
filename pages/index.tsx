@@ -1,139 +1,73 @@
-import { Divider, ScrollArea, Text } from "@mantine/core";
-import { useCounter } from "@mantine/hooks";
-import { Prism } from "@mantine/prism";
+import { useState, useEffect } from "react";
+import { Divider, Text } from "@mantine/core";
+import { AnimatePresence, motion } from "framer-motion";
 import { GetServerSidePropsContext } from "next";
-import { useEffect, useState } from "react";
-import { BrandReact, Terminal, Terminal2, X } from "tabler-icons-react";
-import ReactCanvasConfetti from "react-canvas-confetti";
-import { motion, AnimatePresence } from "framer-motion";
+import { useRouter } from "next/router";
+import { Terminal, Terminal2 } from "tabler-icons-react";
+import Fireworks from "../src/components/fireworks/Fireworks";
+import Layouts from "../src/components/layouts/layouts";
+import TerminalCode from "../src/components/terminal/TerminalCode";
+import TerminalNav from "../src/components/terminal/TerminalNav";
+import TerminalRun from "../src/components/terminal/TerminalRun";
 
 interface IName {
   name: string;
 }
 
 const Home = ({ name }: IName) => {
-  const [typed, setTyped] = useState("");
-  const [terminal1, setTerminal1] = useState("");
-  const [loading, loadingHandlers] = useCounter(0, { min: 0, max: 100 });
+  const [typedFinish, setTypedFinish] = useState(false);
+  const [loadingFinish, setLoadingFinish] = useState(false);
+  const router = useRouter();
+  console.log(router.route);
 
-  const textTerminal1 = `$ node wedding
-> generating invitation.....
-> wait - ${loading}%`;
-  const text1 = `import {🌏} from "./happiness"
-const {🧑,👧}=🌏
-🧑.name = 'Aslam Fauzan'
-👧.name = 'Marisha Mufqi'
+  const handleTypedFinished = (e: boolean) => {
+    setTypedFinish(e);
+  };
+  const handleLoadingFinished = (e: boolean) => {
+    setLoadingFinish(e);
+  };
 
-const wedding = new Wedding(🧑,👧)
-wedding.setDate('March 26, 2023 08:00:00')
-wedding.setLocation('tanggerang')
-wedding.generateInvitation('${name}')`;
-
-  // react particles
-
+  if (loadingFinish) {
+    setTimeout(() => {
+      router.push(`/invitation?to=${name}`);
+    }, 1000);
+  }
   useEffect(() => {
-    const timeout = setTimeout(() => {
-      setTyped(text1.slice(0, typed.length + 1));
-    }, 40);
-
-    if (typed.length == text1.length) {
-      const terminalTimeout = setTimeout(() => {
-        setTerminal1(textTerminal1.slice(0, terminal1.length + 1));
-
-        if (terminal1.length >= 52) {
-          const loadingTimeout = setTimeout(() => {
-            loadingHandlers.increment();
-          }, Math.random() * 2);
-          return () => {
-            clearTimeout(loadingTimeout);
-          };
-        }
-      }, 20);
-
-      return () => {
-        clearTimeout(terminalTimeout);
-      };
-    }
-
-    return () => {
-      clearTimeout(timeout);
-
-      clearTimeout(timeout);
-    };
-  }, [typed, terminal1, loading]);
+    router.prefetch("/invitation");
+  });
 
   return (
-    <>
-      <AnimatePresence>
-        {loading !== 100 && (
-          <motion.div
-            initial={{ opacity: 0, scale: 0 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.2 }}
-            exit={{ opacity: 0, scale: 0, motionRotation: "revert-layer" }}
-            className="min-h-screen bg-blackEditor text-gray-300 relative"
-          >
-            <div className=" ">
-              <nav className="p-2 w-full h-full ">
-                <div className="flex gap-2 items-center">
-                  <div className="bg-red-500 w-4 h-4 rounded-full"></div>
-                  <div className="bg-yellow-500 w-4 h-4 rounded-full"></div>
-                  <div className="bg-green-500 w-4 h-4 rounded-full"></div>
-                </div>
-                <div className="flex mt-2 bg-gray-900">
-                  <div className=" p-2 flex items-center">
-                    <BrandReact height={16} className="text-blue-400" />
-                    <Text>wedding.ts</Text>
-                    <X height={18} />
-                  </div>
-                  <div className="bg-slate-800/60 p-2 flex items-center">
-                    <BrandReact height={16} className="text-blue-400" />
-                    <Text size={"lg"}>invitations.ts</Text>
-                  </div>
-                </div>
-              </nav>
-            </div>
-            <div id="wrapperSection" className={`flex flex-col h-[60vh]`}>
-              <ScrollArea className="flex-1">
-                <Prism
-                  language="typescript"
-                  colorScheme="dark"
-                  withLineNumbers
-                  noCopy
-                  trim
-                  fz={12}
-                >
-                  {typed}
-                </Prism>
-              </ScrollArea>
-              <div className="">
-                <Divider label="terminal" labelPosition="center" />
-                <div className="flex items-center px-2 justify-between">
-                  <Terminal />
-                  <div className="flex items-center ">
-                    <Terminal2 />
-                    <Text size={"xs"}>bash</Text>
-                  </div>
-                </div>
-                <div className="p-3 font-thin terminalFont">
-                  <ScrollArea>
-                    <Prism
-                      language="bash"
-                      colorScheme="dark"
-                      noCopy
-                      trim
-                      fz={12}
-                    >
-                      {terminal1}
-                    </Prism>
-                  </ScrollArea>
-                </div>
+    <Layouts myKey={router.route}>
+      <div className="h-screen bg-blackEditor text-gray-300 relative">
+        <div>
+          <TerminalNav />
+        </div>
+        <div id="wrapperSection" className={`flex flex-col h-[60vh]`}>
+          <div>
+            <TerminalCode
+              name={name}
+              handleTypedFinished={(e: boolean) => handleTypedFinished(e)}
+            />
+          </div>
+        </div>
+        {typedFinish && (
+          <div>
+            <Divider label="terminal" labelPosition="center" />
+            <div className="flex items-center px-2 justify-between">
+              <Terminal />
+              <div className="flex items-center ">
+                <Terminal2 />
+                <Text size={"xs"}>bash</Text>
               </div>
             </div>
-          </motion.div>
+            <TerminalRun
+              handleLoadingFinished={(e: boolean) => handleLoadingFinished(e)}
+            />
+          </div>
         )}
-      </AnimatePresence>
-    </>
+      </div>
+      <Fireworks fires={loadingFinish} />
+    </Layouts>
   );
 };
 

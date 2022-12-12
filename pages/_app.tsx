@@ -10,6 +10,9 @@ import {
   ColorScheme,
   ColorSchemeProvider,
 } from "@mantine/core";
+import { ModalsProvider } from "@mantine/modals";
+import { AnimatePresence, motion } from "framer-motion";
+import { useRouter } from "next/router";
 
 export default function App(props: AppProps & { colorScheme: ColorScheme }) {
   const { Component, pageProps } = props;
@@ -37,7 +40,11 @@ export default function App(props: AppProps & { colorScheme: ColorScheme }) {
         withGlobalStyles
         withNormalizeCSS
       >
-        <Component {...pageProps} />
+        <ModalsProvider>
+          <AnimatePresence mode="wait">
+            <Component {...pageProps} />
+          </AnimatePresence>
+        </ModalsProvider>
       </MantineProvider>
     </ColorSchemeProvider>
   );
