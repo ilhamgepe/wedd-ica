@@ -12,7 +12,7 @@ const Layouts = ({ children, myKey }: IProps) => {
   return (
     <motion.div
       key={myKey}
-      initial={{ y: 900, opacity: 0.5 }}
+      initial={{ y: 900, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       exit={{ x: 300, opacity: 0 }}
       transition={{
