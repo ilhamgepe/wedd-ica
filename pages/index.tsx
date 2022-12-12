@@ -18,7 +18,6 @@ const Home = ({ name }: IName) => {
   const [typedFinish, setTypedFinish] = useState(false);
   const [loadingFinish, setLoadingFinish] = useState(false);
   const router = useRouter();
-  console.log(router.route);
 
   const handleTypedFinished = (e: boolean) => {
     setTypedFinish(e);
@@ -27,14 +26,14 @@ const Home = ({ name }: IName) => {
     setLoadingFinish(e);
   };
 
-  if (loadingFinish) {
-    setTimeout(() => {
-      router.push(`/invitation?to=${name}`);
-    }, 1000);
-  }
   useEffect(() => {
+    if (loadingFinish) {
+      setTimeout(() => {
+        router.push(`/invitation?to=${name}`);
+      }, 1000);
+    }
     router.prefetch("/invitation");
-  });
+  }, [loadingFinish]);
 
   return (
     <Layouts myKey={router.route}>

@@ -7,8 +7,6 @@ interface IProps {
 }
 
 const Layouts = ({ children, myKey }: IProps) => {
-  console.log({ myKey });
-
   return (
     <motion.div
       key={myKey}
