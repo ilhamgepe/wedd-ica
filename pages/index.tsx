@@ -36,7 +36,7 @@ const Home = ({ name }: IName) => {
   }, [loadingFinish]);
 
   return (
-    <Layouts myKey={router.route}>
+    <Layouts myKey={router.route} title="Generating Invitation">
       <div className="h-screen bg-blackEditor text-gray-300 relative">
         <div>
           <TerminalNav />

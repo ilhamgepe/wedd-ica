@@ -20,7 +20,8 @@
     "**/*.ts",
     "**/*.tsx",
     "src/store/store.ts",
-    "src/components/fireworks/Fireworks.jsx"
+    "src/components/fireworks/Fireworks.jsx",
+    "prisma/prisma.ts"
   ],
   "exclude": ["node_modules"]
 }

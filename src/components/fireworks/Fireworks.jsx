@@ -82,22 +82,4 @@ export default function Fireworks({ fires }) {
       <ReactCanvasConfetti refConfetti={getInstance} style={canvasStyles} />
     </>
   );
-
-  if (fire == true) {
-    startAnimation();
-  }
-  setTimeout(() => {
-    pauseAnimation();
-  }, 2000);
-
-  return (
-    <>
-      {/* <div>
-        <button onClick={startAnimation}>Start</button>
-        <button onClick={pauseAnimation}>Pause</button>
-        <button onClick={stopAnimation}>Stop</button>
-      </div> */}
-      <ReactCanvasConfetti refConfetti={getInstance} style={canvasStyles} />
-    </>
-  );
 }
