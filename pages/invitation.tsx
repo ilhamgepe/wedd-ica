@@ -11,7 +11,7 @@ interface IProps {
 }
 const invitation = ({ name }: IProps) => {
   const router = useRouter();
-
+  console.log({ env: process.env.NODE_ENV });
   return (
     <Layouts myKey={router.route} title="Fauzan ❤️ Marisha">
       <div>invitation for {name}</div>
@@ -23,8 +23,6 @@ const invitation = ({ name }: IProps) => {
 export default invitation;
 
 export async function getServerSideProps(ctx: GetServerSidePropsContext) {
-  console.log({ env: process.env.NODE_ENV });
-
   return {
     props: {
       name: ctx.query.to ?? "",
