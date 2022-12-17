@@ -17,13 +17,13 @@ const Layouts = ({ children, myKey, title, className }: IProps) => {
       </Head>
       <motion.div
         key={myKey}
-        initial={{ y: 900, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
         exit={{ x: 300, opacity: 0 }}
         transition={{
-          type: "spring",
-          stiffness: 200,
-          damping: 20,
+          delay: 0.2,
+          x: { duration: 1 },
+          default: { ease: "linear" },
         }}
         // className="w-full min-h-screen"
         className={`w-full min-h-screen ${className ?? className}`}

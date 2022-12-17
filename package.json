@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "clear&& next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
@@ -23,6 +23,7 @@
     "@types/react-dom": "18.0.9",
     "axios": "^1.2.1",
     "cookies-next": "^2.1.1",
+    "embla-carousel-autoplay": "^7.0.5",
     "embla-carousel-react": "^7.0.5",
     "framer-motion": "^7.6.19",
     "next": "13.0.6",

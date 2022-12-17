@@ -1,5 +1,6 @@
 import { Button, Group, Text, Textarea, TextInput } from "@mantine/core";
 import { useForm, zodResolver } from "@mantine/form";
+import axios from "axios";
 import React from "react";
 import { z } from "zod";
 
@@ -25,16 +26,24 @@ const FormWish = ({ name }: IProps) => {
     },
   });
 
-  const handleSubmit = (
+  const handleSubmit = async (
     value: WishForm,
     e: React.FormEvent<HTMLFormElement>
   ) => {
     e.preventDefault();
-    console.log({ value, e });
+    try {
+      await axios
+        .post("/api/wish", {
+          name: value.name,
+          wish: value.wish,
+        })
+        .then(({ data }) => console.log({ data }));
+    } catch (error) {
+      console.log({ error });
+    }
   };
   return (
     <div className="max-w-sm mx-auto">
-      <Text>masih belom bisa dapetin value dari submitan</Text>
       <form onSubmit={form.onSubmit((value, e) => handleSubmit(value, e))}>
         <TextInput
           label="name"

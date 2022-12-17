@@ -1,9 +1,23 @@
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu+Mono&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap");
+
 @tailwind components;
 @tailwind utilities;
-@import url("https://fonts.googleapis.com/css2?family=Ubuntu+Mono&display=swap");
 
 @layer utilities {
   .terminalFont {
     font-family: "Ubuntu Mono", monospace;
   }
+  .corinthiaFont {
+    font-family: "Dancing Script", cursive;
+  }
+
+  .backgroundImage {
+    background-image: "../../public/ilustrasi.png";
+  }
+}
+
+@font-face {
+  font-family: "Athalita";
+  src: url("../../public/style/fonts/Athalita/Athalita.ttf");
 }
