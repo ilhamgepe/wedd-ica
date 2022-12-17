@@ -5,7 +5,7 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const { name, wish } = req.body;
+  const { name, wish }: { name: string; wish: string } = req.body;
   console.log({ name, wish });
   if (req.method !== "POST") {
     return res.status(405).json({ message: "method not allowed" });
@@ -18,6 +18,7 @@ export default async function handler(
     data: {
       name,
       wish,
+      updatedAt: new Date(),
     },
   });
   console.log(postData);
